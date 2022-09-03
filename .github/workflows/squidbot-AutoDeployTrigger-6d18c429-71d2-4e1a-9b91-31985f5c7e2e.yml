@@ -7,8 +7,8 @@ on:
     branches: 
       [ main ]
     paths:
-    - '**'
-    - '.github/workflows/squidbot-AutoDeployTrigger-29d535f6-77c7-4063-b4ca-e7ada40298d0.yml'
+    - 'dockerfile/**'
+    - '.github/workflows/squidbot-AutoDeployTrigger-6d18c429-71d2-4e1a-9b91-31985f5c7e2e.yml'
 
   # Allow mannually trigger 
   workflow_dispatch:      
@@ -36,8 +36,8 @@ jobs:
         with:
           push: true
           tags: squidbot.azurecr.io/squidbot:${{ github.sha }}
-          file: ./Dockerfile
-          context: ./
+          file: ./dockerfile/Dockerfile
+          context: ./dockerfile/
 
 
   deploy:

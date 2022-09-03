@@ -3,6 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
+import { RESTPostAPIApplicationCommandsJSONBody } from 'discord.js';
+import { SquidbotCommand } from './models/squidbot-command';
 
 console.log("-----DEPLOYING SLASH COMMANDS-----");
 
@@ -23,15 +25,16 @@ else {
 	discordClientId = process.argv[3] as string;
 }
 
-const commands = [];
+const commands: RESTPostAPIApplicationCommandsJSONBody[] = [];
 const commandsPath = path.resolve(__dirname, "commands/");
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 console.log(`Registering ${commandFiles.length} commands...`);
 for (const file of commandFiles) {
 	// eslint-disable-next-line @typescript-eslint/no-var-requires
-	const command = require(`${commandsPath}/${file}`);
-	console.log(`Registering ${command.data.name} command`)
+	const command: SquidbotCommand = require(`${commandsPath}/${file}`);
+	console.log(`Registering ${command.data.name} command`);
 	commands.push(command.data.toJSON());
+	command.data.toJSON()
 }
 	
 const rest = new REST({ version: '9' }).setToken(discordToken);

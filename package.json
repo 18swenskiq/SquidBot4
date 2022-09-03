@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.36.1",
+    "copyfiles": "^2.4.1",
+    "discord.js": "^14.3.0",
+    "eslint": "^8.23.0",
+    "typescript": "^4.8.2"
+  },
+  "scripts": {
+    "compile": "npx tsc",
+    "updateCommands": "node ./output/deploy-commands.js",
+    "copyDevConfig": "copyfiles development_config.json ./output",
+    "prestart": "npm run compile && npm run copyDevConfig && npm run updateCommands",
+    "start": "node ./output/bot.js"
+  }
+}

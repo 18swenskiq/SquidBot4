@@ -1,11 +1,13 @@
 import { Interaction } from "discord.js";
+import { ClientWithCommands } from "../models/client-with-commands";
 
 module.exports = {
 	name: 'interactionCreate',
 	execute: async(interaction: Interaction) => {
 		if (!interaction.isChatInputCommand()) return;
 
-        const command = interaction.client.commands.get(interaction.commandName);
+        const client = interaction.client as ClientWithCommands
+        const command = client.commands.get(interaction.commandName);
         if(!command) return;
 
         try {

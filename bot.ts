@@ -1,7 +1,8 @@
 // Require the necessary discord.js classes
 import fs from 'fs';
 import path from 'path';
-import { Client, Collection, GatewayIntentBits } from 'discord.js';
+import { Collection, GatewayIntentBits } from 'discord.js';
+import { ClientWithCommands } from './models/client-with-commands';
 
 console.log("-----SquidBot 4: The Squiddening-----");
 process.argv.forEach(function (val, index, _) {
@@ -23,7 +24,7 @@ else {
 }
 
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new ClientWithCommands({ intents: [GatewayIntentBits.Guilds] });
 
 // Set up events
 const eventsPath = path.resolve(__dirname, "events/");

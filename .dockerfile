@@ -25,6 +25,5 @@ COPY --chown=node:node  /config ./config
 COPY --chown=node:node  /public ./public
 
 
-EXPOSE 2700
 CMD [ "node", "build/deploy-commands.js", DISCORD_TOKEN, DISCORD_CLIENT_ID ]
 CMD [ "node", "build/bot.js", DISCORD_TOKEN, DISCORD_CLIENT_ID ]

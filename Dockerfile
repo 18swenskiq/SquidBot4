@@ -19,6 +19,7 @@ COPY package*.json ./
 USER node
 COPY --chown=node:node . .
 RUN npm install --production
+RUN npm run compile
 COPY /home/node/app/output ./build
 
 COPY --chown=node:node .env .

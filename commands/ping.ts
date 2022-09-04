@@ -5,7 +5,7 @@ import { CommandInteraction } from 'discord.js';
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ping')
-		.setDescription('For testing'),
+		.setDescription('This command does absolutely nothing'),
 	async execute(interaction: CommandInteraction) {
 		await interaction.reply("This doesn't do anything");
 	},

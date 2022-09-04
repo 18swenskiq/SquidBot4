@@ -4,9 +4,9 @@ import { CommandInteraction } from 'discord.js';
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('pringle')
-		.setDescription('For testing'),
+		.setName('nothing')
+		.setDescription('even more nothing'),
 	async execute(interaction: CommandInteraction) {
-		await interaction.reply("Seems like it might be unnecessary");
+		await interaction.reply("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 	},
 };

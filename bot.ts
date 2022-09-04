@@ -3,43 +3,13 @@ import fs from 'fs';
 import path from 'path';
 import { Collection, GatewayIntentBits, REST, RESTPostAPIApplicationCommandsJSONBody, Routes } from 'discord.js';
 import { ClientWithCommands } from './models/client-with-commands';
-import { SquidbotCommand } from './models/squidbot-command';
 
-const registerCommands = (): void => {
+const registerCommands = (token: string, clientId: string, commands: RESTPostAPIApplicationCommandsJSONBody[]): void => {
 	console.log("-----DEPLOYING SLASH COMMANDS-----");
-
-	let discordToken: string;
-	let discordClientId: string;
-
-	if (process.argv.length === 2) {
-		console.log("No input arguments found, reading from development config file...");
-		const cfgPath = path.resolve(__dirname, "development_config.json");
-		// eslint-disable-next-line @typescript-eslint/no-var-requires
-		const { token, clientId } = require(cfgPath);
-
-		discordToken = token;
-		discordClientId = clientId;
-	}
-	else {
-		discordToken = process.argv[2] as string;
-		discordClientId = process.argv[3] as string;
-	}
-
-	const commands: RESTPostAPIApplicationCommandsJSONBody[] = [];
-	const commandsPath = path.resolve(__dirname, "commands/");
-	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-	console.log(`Registering ${commandFiles.length} commands...`);
-	for (const file of commandFiles) {
-		// eslint-disable-next-line @typescript-eslint/no-var-requires
-		const command: SquidbotCommand = require(`${commandsPath}/${file}`);
-		console.log(`Registering ${command.data.name} command`);
-		commands.push(command.data.toJSON());
-		command.data.toJSON()
-	}
 		
-	const rest = new REST({ version: '9' }).setToken(discordToken);
+	const rest = new REST({ version: '9' }).setToken(token);
 
-	rest.put(Routes.applicationCommands(discordClientId), { body: commands })
+	rest.put(Routes.applicationCommands(clientId), { body: commands })
 		.then(() => console.log('Successfully registered application commands.'))
 		.then(() => console.log("-----END DEPLOYING SLASH COMMANDS-----"))
 		.then(() => console.log("\n"))
@@ -52,17 +22,20 @@ process.argv.forEach(function (val, index, _) {
 });
 
 let discordToken: string;
+let discordClientId: string;
 
 // No token provided, use developer one
 if (process.argv.length === 2) {
 	const cfgPath = path.resolve(__dirname, "development_config.json");
 
 	// eslint-disable-next-line @typescript-eslint/no-var-requires
-	const { token } = require(cfgPath);
+	const { token, clientId } = require(cfgPath);
 	discordToken = token;
+	discordClientId = clientId;
 }	
 else {
 	discordToken = process.argv[2] as string;
+	discordClientId = process.argv[3] as string;
 }
 
 // Create a new client instance
@@ -88,8 +61,9 @@ console.log("Done loading events");
 
 // Set up Commands
 const commandsPath = path.resolve(__dirname, "commands/");
-
 client.commands = new Collection();
+const commandsForRegistration: RESTPostAPIApplicationCommandsJSONBody[] = [];
+
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 console.log(`Loading ${commandFiles.length} commands...`);
 
@@ -100,10 +74,12 @@ for (const file of commandFiles) {
 	// Set a new item in the Collection
 	// With the key as the command name and the value as the exported module
 	client.commands.set(command.data.name, command);
+
+	commandsForRegistration.push(command.data.toJSON());
 }
 console.log("Done loading commands");
 
-registerCommands();
+registerCommands(discordToken, discordClientId, commandsForRegistration);
 
 // Login to Discord with your client's token
 client.login(discordToken);

@@ -24,7 +24,7 @@ jobs:
         uses: AlexRogalskiy/github-action-tag-replacer@v2.0.1
         with:
           sourceFile: ./Dockerfile
-          placeholder: DISCORD_TOKEN
+          placeholder: DISCORD_CLIENT_ID
           replacement: ${{ secrets.DISCORD_CLIENT_ID }}
       
       - name: Set up Docker Buildx

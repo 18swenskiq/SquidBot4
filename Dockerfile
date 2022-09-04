@@ -7,4 +7,4 @@ COPY . .
 RUN tsc
 
 EXPOSE 8080
-CMD [ "node", "./build/bot.js", DISCORD_TOKEN, DISCORD_CLIENT_ID]
+CMD [ "node", "./build/bot.js", DISCORD_TOKEN, DISCORD_CLIENT_ID ]

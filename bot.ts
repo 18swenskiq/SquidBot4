@@ -81,5 +81,11 @@ console.log("Done loading commands");
 
 registerCommands(discordToken, discordClientId, commandsForRegistration);
 
+function logHeartbeat() {
+	console.log(`Heatbeat log -  ${Date.now()}`);
+}
+
+setInterval(logHeartbeat, 15 * 1000);
+
 // Login to Discord with your client's token
 client.login(discordToken);

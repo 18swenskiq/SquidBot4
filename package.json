@@ -9,9 +9,8 @@
   },
   "scripts": {
     "compile": "npx tsc",
-    "updateCommands": "node ./output/deploy-commands.js",
-    "copyDevConfig": "copyfiles development_config.json ./output",
-    "prestart": "npm run compile && npm run copyDevConfig && npm run updateCommands",
-    "start": "node ./output/bot.js"
+    "copyDevConfig": "copyfiles development_config.json ./build",
+    "prestart": "npm run compile && npm run copyDevConfig",
+    "start": "node ./build/bot.js"
   }
 }

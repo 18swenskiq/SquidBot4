@@ -44,13 +44,6 @@ jobs:
           tags: squidbot.azurecr.io/squidbot:${{ github.sha }}
           file: ./Dockerfile
           context: ./
-        
-      - name: Upload Dockerfile build artifact
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          path: ./Dockerfile
-          error: Could not upload build artifact
-          retention-days: 1
 
   deploy:
     runs-on: ubuntu-latest

@@ -5,8 +5,6 @@ COPY package.json .
 RUN npm install && npm install typescript -g
 COPY . .
 RUN tsc
-CMD ["node", "./build/bot.js", DISCORD_TOKEN, DISCORD_CLIENT_ID]
 
-
-#CMD [ "node", "build/deploy-commands.js", DISCORD_TOKEN, DISCORD_CLIENT_ID ]
-#CMD [ "node", "build/bot.js", DISCORD_TOKEN, DISCORD_CLIENT_ID ]
+EXPOSE 8080
+CMD [ "node", "./build/bot.js", DISCORD_TOKEN, DISCORD_CLIENT_ID]

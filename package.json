@@ -12,6 +12,7 @@
     "copyDevConfig": "copyfiles development_config.json ./build",
     "prestart": "npm run compile && npm run copyDevConfig",
     "start": "node ./build/bot.js",
-    "build:azure": "npm run prestart"
+    "build:azure": "npm run prestart && ncc build ./build/bot.js -o dist"
+
   }
 }

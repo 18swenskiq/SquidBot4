@@ -11,6 +11,7 @@
     "compile": "npx tsc",
     "copyDevConfig": "copyfiles development_config.json ./build",
     "prestart": "npm run compile && npm run copyDevConfig",
-    "start": "node ./build/bot.js"
+    "start": "node ./build/bot.js",
+    "build:azure": "npm run prestart"
   }
 }

@@ -19,6 +19,7 @@ jobs:
         with:
           node-verison: ${{ matrix.node-verison }}
       - run: npm install
+      - run: npm install -g ncc
       - run: npm run build:azure
       
       - name: ssh deploy

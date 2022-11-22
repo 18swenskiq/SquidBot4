@@ -18,7 +18,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-verison: ${{ matrix.node-verison }}
-      - run: apt-get install rsync
       - run: npm install
       - run: npm run build:azure
       

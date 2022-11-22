@@ -10,9 +10,9 @@
   },
   "scripts": {
     "compile": "npx tsc",
-    "copyDevConfig": "copyfiles development_config.json ./build",
+    "copyDevConfig": "copyfiles development_config.json ./dist",
     "prestart": "npm run compile && npm run copyDevConfig",
-    "start": "node ./build/bot.js",
+    "start": "node ./dist/bot.js",
     "build:azure": "npm run prestart"
   }
 }

@@ -2,7 +2,7 @@ name: SSH Deploy
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   deploy:
@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x, 15.x]
+        node-version: [14.x]
     
     steps:
       - uses: actions/checkout@v2
@@ -18,7 +18,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-verison: ${{ matrix.node-verison }}
-      - run: npm build:azure
+      - run: npm install
+      - run: npm install -g ncc
+      - run: npm run build:azure
       
       - name: ssh deploy
         uses: easingthemes/ssh-deploy@v2.1.4
